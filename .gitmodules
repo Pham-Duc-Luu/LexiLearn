@@ -1,0 +1,3 @@
+[submodule "frontend-nextjs-Submodules"]
+	path = frontend-nextjs-Submodules
+	url = https://github.com/Pham-Duc-Luu/LexiLearn-frontend
