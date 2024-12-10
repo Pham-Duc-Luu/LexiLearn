@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/Drive1/myuserhome/project/ankiplus/notification/notification.csproj": {}
+    "/mnt/Drive1/myuserhome/project/LexiLearn/notification/notification.csproj": {}
   },
   "projects": {
-    "/mnt/Drive1/myuserhome/project/ankiplus/notification/notification.csproj": {
+    "/mnt/Drive1/myuserhome/project/LexiLearn/notification/notification.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/Drive1/myuserhome/project/ankiplus/notification/notification.csproj",
+        "projectUniqueName": "/mnt/Drive1/myuserhome/project/LexiLearn/notification/notification.csproj",
         "projectName": "notification",
-        "projectPath": "/mnt/Drive1/myuserhome/project/ankiplus/notification/notification.csproj",
+        "projectPath": "/mnt/Drive1/myuserhome/project/LexiLearn/notification/notification.csproj",
         "packagesPath": "/home/luu/.nuget/packages/",
-        "outputPath": "/mnt/Drive1/myuserhome/project/ankiplus/notification/obj/",
+        "outputPath": "/mnt/Drive1/myuserhome/project/LexiLearn/notification/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/luu/.nuget/NuGet/NuGet.Config"
