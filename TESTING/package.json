@@ -1,0 +1,27 @@
+{
+  "name": "testing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.0.3",
+    "bcrypt": "^5.1.1",
+    "chance": "^1.1.12",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.7.1",
+    "uuid": "^10.0.0"
+  }
+}
