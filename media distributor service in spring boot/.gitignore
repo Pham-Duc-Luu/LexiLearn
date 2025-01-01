@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+/db
+/logs
+
 ##ENVIROMENT
 
 # dotenv environment variable files
@@ -31,6 +34,8 @@ target/
 *.iws
 *.iml
 *.ipr
+
+*.conf
 
 ### NetBeans ###
 /nbproject/private/

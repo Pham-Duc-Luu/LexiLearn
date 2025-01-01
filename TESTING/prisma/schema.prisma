@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Desk {
+  desk_id          Int         @id @default(autoincrement())
+  desk_description String?     @db.VarChar(255)
+  desk_thumbnail   String?     @db.VarChar(255)
+  desk_icon        String?     @db.VarChar(255)
+  desk_is_public   Boolean?
+  desk_owner_id    Int?
+  desk_name        String      @db.VarChar(255)
+  User             User?       @relation(fields: [desk_owner_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "Desk_ibfk_1")
+  Flashcard        Flashcard[]
+  Vocab            Vocab[]
+
+  @@index([desk_owner_id], map: "desk_owner_id")
+}
+
+model Flashcard {
+  flashcard_id          Int     @id @default(autoincrement())
+  flashcard_front_image String? @db.VarChar(255)
+  flashcard_front_sound String? @db.VarChar(255)
+  flashcard_front_text  String? @db.VarChar(255)
+  flashcard_back_image  String? @db.VarChar(255)
+  flashcard_back_sound  String? @db.VarChar(255)
+  flashcard_back_text   String? @db.VarChar(255)
+  flashcard_vocab_id    Int?
+  flashcard_desk_id     Int?
+  Desk                  Desk?   @relation(fields: [flashcard_desk_id], references: [desk_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_flashcard_desk")
+  Vocab                 Vocab?  @relation(fields: [flashcard_vocab_id], references: [vocab_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_flashcard_vocab")
+
+  @@index([flashcard_desk_id], map: "fk_flashcard_desk")
+  @@index([flashcard_vocab_id], map: "fk_flashcard_vocab")
+}
+
+model User {
+  user_id        Int                 @id @default(autoincrement())
+  user_name      String              @db.VarChar(255)
+  user_password  String              @db.VarChar(255)
+  user_provider  User_user_provider?
+  created_at     DateTime?           @default(now()) @db.Timestamp(0)
+  update_at      DateTime?           @default(now()) @db.Timestamp(0)
+  user_email     String              @unique(map: "unique_user_email") @db.VarChar(255)
+  user_avatar    String?             @db.VarChar(255)
+  user_thumbnail String?             @db.VarChar(255)
+  Desk           Desk[]
+  User_Token     User_Token[]
+}
+
+model User_Token {
+  UT_id         Int                 @id @default(autoincrement())
+  UT_type       User_Token_UT_type?
+  UT_expired_at DateTime?           @db.Timestamp(0)
+  UT_text       String              @db.VarChar(255)
+  UT_user_id    Int?
+  User          User?               @relation(fields: [UT_user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "User_Token_ibfk_1")
+
+  @@index([UT_user_id], map: "UT_user_id")
+}
+
+model Vocab {
+  vocab_id       Int             @id @default(autoincrement())
+  vocab_language String?         @db.VarChar(255)
+  vocab_meaning  String?         @db.VarChar(255)
+  vocab_image    String?         @db.VarChar(255)
+  vocab_text     String?         @db.VarChar(255)
+  vocab_desk_id  Int?
+  Flashcard      Flashcard[]
+  Desk           Desk?           @relation(fields: [vocab_desk_id], references: [desk_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_vocab_desk")
+  Vocab_Example  Vocab_Example[]
+
+  @@index([vocab_desk_id], map: "fk_vocab_desk")
+}
+
+model Vocab_Example {
+  VE_id       Int     @id @default(autoincrement())
+  VE_text     String? @db.Text
+  VE_vocab_id Int?
+  Vocab       Vocab?  @relation(fields: [VE_vocab_id], references: [vocab_id], onDelete: Cascade, onUpdate: NoAction, map: "Vocab_Example_ibfk_1")
+
+  @@index([VE_vocab_id], map: "VE_vocab_id")
+}
+
+enum User_user_provider {
+  GOOGLE
+  FACEBOOK
+  LOCAL
+}
+
+enum User_Token_UT_type {
+  REFRESH_TOKEN
+  OTP
+}

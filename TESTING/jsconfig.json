@@ -7,12 +7,14 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
-
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
+    "strictPropertyInitialization": false,
 
     // Best practices
     "strict": true,
