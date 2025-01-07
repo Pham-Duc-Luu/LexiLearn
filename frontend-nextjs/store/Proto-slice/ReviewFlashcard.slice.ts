@@ -21,7 +21,7 @@ export interface ReviewFlashcardSlice {
 
 const initialState: ReviewFlashcardSlice = {
   currentFlashcardIndex: 0,
-  flashcards: Array.from({ length: 10 }, (card, index) => {
+  flashcards: Array.from({ length: 40 }, (card, index) => {
     return {
       id: 1,
       index,
@@ -46,9 +46,8 @@ const reviewFlashcardSlice = createSlice({
       state,
       action: PayloadAction<Pick<FlashCardType, "index" | "review_result">>
     ) => {
-      state.flashcards[action.payload.index] &&
-        (state.flashcards[action.payload.index].review_result =
-          action.payload.review_result);
+      state.flashcards[action.payload.index].review_result =
+        action.payload.review_result;
     },
   },
 });

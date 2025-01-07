@@ -2,7 +2,6 @@ package com.MainBackendService.GraphqlResolver;
 
 import com.MainBackendService.dto.GraphqlDto.FlashcardPaginationResult;
 import com.MainBackendService.service.FlashcardService.FlashcardGQLService;
-import com.MainBackendService.service.SpacedRepetitionSerivce.SM_0_GQLService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import org.apache.logging.log4j.LogManager;
@@ -18,9 +17,6 @@ public class FlashcardResolver {
     @Autowired
     private FlashcardGQLService flashcardGQLService;
 
-
-    @Autowired
-    private SM_0_GQLService sm_0_gqlService;
 
     /**
      * GraphQL query resolver for fetching flashcards with pagination.

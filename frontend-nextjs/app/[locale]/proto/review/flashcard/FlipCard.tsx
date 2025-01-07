@@ -11,8 +11,11 @@ import {
   setCurrentFlashcardIndex,
   updateReviewResultWithIndex,
 } from "@/store/Proto-slice/ReviewFlashcard.slice";
-import { useAppDispatch, useAppSelector } from "@/store/Proto-slice/ProtoStore";
-import { IconFlipHorizontal } from "@tabler/icons-react";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/store/Proto-slice/ProtoStore.slice";
+import { CgEditFlipV } from "react-icons/cg";
 
 const FlipCard = ({
   Flashcard,
@@ -62,14 +65,13 @@ const FlipCard = ({
   const handleNextCardAnimationStart = () => {
     setIsDisableFlip(true);
   };
-
   return (
     <>
       <motion.div
         onAnimationComplete={() => handleNextCardAnimationComplete()}
         onAnimationStart={() => handleNextCardAnimationStart()}
         className={cn(
-          " lg:w-[900px] lg:h-[400px] w-20 h-20  rounded-sm   absolute bg-transparent flex flex-col justify-between",
+          " lg:w-[1000px] lg:h-[450px] w-20 h-20  rounded-sm   absolute bg-transparent flex flex-col justify-between",
           !isDisplay && "hidden"
         )}
         key={index}
@@ -126,7 +128,7 @@ const FlipCard = ({
           >
             <Card
               className={cn(
-                " w-full h-full cursor-pointer overflow-hidden  rounded-sm shadow-2xl border-t-3 border-b-[14px] border-x-3 ",
+                " w-full h-full overflow-hidden  rounded-sm shadow-2xl border-t-3 border-b-[8px] border-x-3 ",
                 Flashcard?.review_result === "default" && "border-color-4",
                 Flashcard?.review_result === "bad" && "border-warning",
                 Flashcard?.review_result === "good" && "border-success"
@@ -140,18 +142,16 @@ const FlipCard = ({
                   Flashcard?.review_result === "good" && "bg-success/20"
                 )}
               >
-                <Card className=" m-8 rounded-sm">
-                  <Image
-                    alt="Card front"
-                    loading="lazy"
-                    src={Flashcard?.front_image}
-                    isZoomed
-                    disableSkeleton={false}
-                    removeWrapper
-                    className="z-0 w-full h-full  rounded-sm object-cover"
-                    radius="sm"
-                  />
-                </Card>
+                <Image
+                  alt="Card front"
+                  loading="lazy"
+                  src={Flashcard?.front_image}
+                  isZoomed
+                  disableSkeleton={false}
+                  height={400}
+                  className=" rounded-sm order-2 border-gray-400 flex justify-center items-center content-center"
+                  radius="sm"
+                />
                 <div className=" w-full h-full  flex justify-center items-center overflow-y-scroll">
                   <span className=" text-6xl font-bold">
                     {Flashcard?.index}
@@ -177,7 +177,7 @@ const FlipCard = ({
           >
             <Card
               className={cn(
-                "  w-full h-full overflow-hidden cursor-pointer rounded-sm shadow-2xl border-color-4 border-t-3 border-b-[14px] border-x-3 ",
+                "  w-full h-full overflow-hidden  rounded-sm shadow-2xl border-color-4 border-t-3 border-b-[8px] border-x-3 ",
                 Flashcard?.review_result === "default" && "border-color-4",
                 Flashcard?.review_result === "bad" && "border-warning",
                 Flashcard?.review_result === "good" && "border-success"
@@ -191,19 +191,16 @@ const FlipCard = ({
                   Flashcard?.review_result === "good" && "bg-success/20"
                 )}
               >
-                <Card className=" m-8 rounded-sm">
-                  <Image
-                    alt="Card front"
-                    loading="lazy"
-                    src={Flashcard?.back_image}
-                    isZoomed
-                    disableSkeleton={false}
-                    removeWrapper
-                    className="z-0 w-full h-full  rounded-sm object-cover"
-                    radius="sm"
-                  />
-                </Card>
-                <div className=" w-full h-full p-4 flex overflow-hidden flex-col justify-center items-center">
+                <Image
+                  alt="Card front"
+                  loading="lazy"
+                  height={400}
+                  isZoomed
+                  className="object-fill rounded-sm aspect-square border-2 border-gray-400 "
+                  src={Flashcard?.back_image}
+                  radius="sm"
+                />
+                <div className=" w-full h-full  flex flex-col justify-center items-center">
                   <span className=" text-6xl font-bold">
                     {Flashcard?.back_text}
                   </span>
@@ -216,12 +213,14 @@ const FlipCard = ({
       </motion.div>
       {Flashcard.index === currentFlashcardIndex && (
         <Button
-          onPress={() => setIsFlip(!isFlip)}
-          className="bg-color-3/20 border-color-3 h-28 aspect-video absolute translate-y-1/2 -right-2 origin-left translate-x-full bottom-1/2 border-x-2 border-t-2 border-b-5"
+          className=" absolute translate-x-full translate-y-1/2 bottom-1/2 -right-4 border-x-2 border-t-2 border-b-4 bg-color-3/20 border-color-3"
+          radius="sm"
+          variant="flat"
+          startContent={<CgEditFlipV size={20} />}
+          onClick={() => {
+            handlerFlip();
+          }}
           size="lg"
-          startContent={
-            <IconFlipHorizontal className="h-full w-full font-light text-neutral-500 dark:text-neutral-300"></IconFlipHorizontal>
-          }
         >
           Flip
         </Button>
@@ -229,6 +228,7 @@ const FlipCard = ({
     </>
   );
 };
+let interval: any;
 
 export const FlipCardList = ({
   offset,
@@ -243,7 +243,6 @@ export const FlipCardList = ({
 
   const CARD_OFFSET = offset || 10;
   const SCALE_FACTOR = scaleFactor || 0.06;
-  const [isFlipCurr, setIsFlipCurr] = useState(false);
 
   const dispatch = useAppDispatch();
   return (
@@ -251,9 +250,9 @@ export const FlipCardList = ({
       <motion.div
         style={{
           backgroundColor: "transparent",
-          perspective: "900px",
+          perspective: "1000px",
         }}
-        className={cn(" relative lg:w-[900px] lg:h-[400px] w-20 h-20")}
+        className={cn(" relative lg:w-[1000px] lg:h-[450px] w-20 h-20")}
       >
         <AnimatePresence>
           {flashcards?.map((card, index) => {

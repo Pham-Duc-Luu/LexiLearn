@@ -3,7 +3,7 @@ package com.MainBackendService.service.FlashcardService;
 import com.MainBackendService.dto.GraphqlDto.FlashcardPaginationResult;
 import com.MainBackendService.modal.FlashcardModal;
 import com.MainBackendService.modal.SMModal;
-import com.MainBackendService.service.SpacedRepetitionSerivce.SM_0_GQLService;
+import com.MainBackendService.service.SpacedRepetitionSerivce.SM_2_GQLService;
 import com.jooq.sample.model.tables.Flashcard;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class FlashcardGQLService {
     private DSLContext dslContext;
 
     @Autowired
-    private SM_0_GQLService sm_0_gqlService;
+    private SM_2_GQLService sm_2_gqlService;
 
     /**
      * Fetch flashcards with pagination and desk filter.
@@ -56,7 +56,7 @@ public class FlashcardGQLService {
                 .fetchInto(FlashcardModal.class);
         // Populate SM field
         for (FlashcardModal flashcardItem : flashcards) {
-            SMModal sm = sm_0_gqlService.getSpacedRepetitionWithFlashcardId(Integer.valueOf(flashcardItem.getId()));
+            SMModal sm = sm_2_gqlService.getSpacedRepetitionWithFlashcardId(Integer.valueOf(flashcardItem.getId()));
             flashcardItem.setSM(sm);
         }
 

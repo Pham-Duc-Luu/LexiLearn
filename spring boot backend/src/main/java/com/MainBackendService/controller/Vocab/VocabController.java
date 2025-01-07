@@ -2,11 +2,11 @@ package com.MainBackendService.controller.Vocab;
 
 import com.MainBackendService.controller.User.UserProfileController;
 import com.MainBackendService.dto.AccessTokenDetailsDto;
-import com.MainBackendService.dto.CreateVocabDto;
 import com.MainBackendService.dto.HttpErrorDto;
 import com.MainBackendService.dto.SuccessReponseDto;
+import com.MainBackendService.dto.createDto.CreateVocabDto;
 import com.MainBackendService.service.FlashcardService.FlashcardService;
-import com.MainBackendService.service.SpacedRepetitionSerivce.SM_0_Service;
+import com.MainBackendService.service.SpacedRepetitionSerivce.SM_2_Service;
 import com.MainBackendService.service.VocabService.VocabService;
 import com.jooq.sample.model.tables.records.FlashcardRecord;
 import com.jooq.sample.model.tables.records.SpacedRepetitionRecord;
@@ -31,7 +31,7 @@ public class VocabController {
     private FlashcardService flashcardService;
 
     @Autowired
-    private SM_0_Service sm_0_service;
+    private SM_2_Service sm_2_service;
 
     @PostMapping()
     public ResponseEntity<?> createNewVocab(
@@ -47,7 +47,7 @@ public class VocabController {
             FlashcardRecord flashcardRecord = flashcardService.initFlashcardForVocabularyInDesk(vocabRecord.getVocabId());
 
             // * attach the spaced repetition to flashcard ( default is sm-0 )
-            SpacedRepetitionRecord spacedRepetitionRecord = sm_0_service.initSM_0_forFlashcard(flashcardRecord.getFlashcardId());
+            SpacedRepetitionRecord spacedRepetitionRecord = sm_2_service.initSM_2_forFlashcard(flashcardRecord.getFlashcardId());
             return new ResponseEntity<>(new SuccessReponseDto("create new vocabulary successfully"), HttpStatus.CREATED);
 
         } catch (Exception e) {

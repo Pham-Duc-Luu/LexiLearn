@@ -1,6 +1,6 @@
 "use client";
 import { Toaster } from "@/components/ui/toaster";
-import { ProtoStore } from "@/store/Proto-slice/ProtoStore";
+import { ProtoStore } from "@/store/Proto-slice/ProtoStore.slice";
 import { Provider } from "react-redux";
 import { SettingBox } from "./SettingBox";
 
